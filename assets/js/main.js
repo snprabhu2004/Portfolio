@@ -105,25 +105,6 @@
     kiosk.addEventListener('animationstart', () => { n = 1; kioskN.textContent = n; });
   }
 
-  /* ---------- Hero kolam: dots brighten near the pointer ---------- */
-  const dots = $$('.kolam__dots circle');
-  dots.forEach((d, i) => d.style.setProperty('--i', i));
-  const kolamSvg = $('.kolam');
-  let kolamRect = null;
-  const kolamNear = (x, y) => {
-    if (!kolamSvg) return;
-    kolamRect = kolamRect || kolamSvg.getBoundingClientRect();
-    if (y > kolamRect.bottom + 100) return;
-    const sx = 620 / kolamRect.width, ox = kolamRect.left, oy = kolamRect.top;
-    const px = (x - ox) * sx - 30, py = (y - oy) * sx - 30;
-    dots.forEach(d => {
-      const dx = d.cx.baseVal.value - px, dy = d.cy.baseVal.value - py;
-      d.classList.toggle('is-near', dx * dx + dy * dy < 90 * 90);
-    });
-  };
-  addEventListener('resize', () => { kolamRect = null; }, { passive: true });
-  addEventListener('scroll', () => { kolamRect = null; }, { passive: true });
-
   /* ---------- Custom cursor ---------- */
   const cursor = $('.cursor');
   const enableCursor = () => finePointer.matches && !reduceMotion.matches;
@@ -151,13 +132,10 @@
       cursor.classList.toggle('has-label', !!text);
       cursor.classList.toggle('is-link', !!tgt && !text);
       if (text) label.textContent = text;
-      kolamNear(mx, my);
     }, { passive: true });
     document.addEventListener('pointerleave', () => cursor.classList.add('is-hidden'));
     addEventListener('pointerdown', () => cursor.classList.add('is-down'));
     addEventListener('pointerup', () => cursor.classList.remove('is-down'));
-  } else if (finePointer.matches) {
-    addEventListener('pointermove', e => kolamNear(e.clientX, e.clientY), { passive: true });
   }
 
   /* ---------- Magnetic buttons ---------- */

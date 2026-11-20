@@ -180,7 +180,7 @@ main:focus{outline:none}
 @media (prefers-reduced-motion:no-preference){.status__dot{animation:ping 2.4s var(--ease-out) infinite}}
 @keyframes ping{0%{box-shadow:0 0 0 0 rgba(255,59,47,.55)}80%,100%{box-shadow:0 0 0 12px rgba(255,59,47,0)}}
 
-.hero__kolam{position:absolute;top:calc(var(--header-h) + 1.5rem);right:calc(var(--gutter) * -1.5);width:min(54vw,860px);opacity:.9;pointer-events:none}
+.hero__art{position:absolute;top:calc(var(--header-h) + 1.5rem);right:calc(var(--gutter) * -1.5);width:min(54vw,860px);opacity:.9;pointer-events:none}
 .kolam__line{fill:none;stroke:var(--white);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;opacity:.2}
 .kolam__dots circle{fill:var(--turmeric);transition:r .3s var(--ease-out),opacity .3s}
 .kolam__dots circle{opacity:.85}
@@ -189,7 +189,7 @@ main:focus{outline:none}
 @media (max-width:860px){
   .hero__title{font-size:clamp(2.6rem,11.5vw,5rem)}
   .hero{align-items:flex-end}
-  .hero__kolam{width:120vw;right:-45vw;top:calc(var(--header-h) - .5rem);opacity:.4}
+  .hero__art{width:120vw;right:-45vw;top:calc(var(--header-h) - .5rem);opacity:.4}
   .hero__foot{grid-template-columns:1fr}
   .hero__title{max-width:none}
 }
@@ -507,7 +507,7 @@ main:focus{outline:none}
 }
 
 @media print{
-  .site-header,.cursor,.hero__kolam,.gallery{display:none!important}
+  .site-header,.cursor,.hero__art,.gallery{display:none!important}
   [data-theme="dark"]{background:#fff;color:#000}
 }
 
@@ -885,12 +885,12 @@ main:focus{outline:none}
 .hero .wrap.hero__inner{padding-left:calc(var(--pw) + var(--gutter) * .75);padding-right:calc(var(--pw) + var(--gutter) * .75)}
 .hero__title{font-size:min(var(--step-5),11.5vh,6.6vw);line-height:1.04}
 .hero__title .line{padding:.06em 0 .16em;margin-bottom:-.14em}
-.hero__kolam{right:calc(var(--pw) + 1vw)}
+.hero__art{right:calc(var(--pw) + 1vw)}
 @media (max-width:860px){
   .hero{--pw:clamp(28px,8vw,52px)}
   .hero .wrap.hero__inner{padding-left:calc(var(--pw) + .9rem);padding-right:calc(var(--pw) + .9rem)}
   .hero__title{font-size:clamp(2.3rem,10.5vw,4.6rem);line-height:1.06}
-  .hero__kolam{right:-45vw}
+  .hero__art{right:-45vw}
 }
 
 /* ---------- Hero refinements: larger, fainter pillars; kolam always vertically centred ---------- */
@@ -898,12 +898,12 @@ main:focus{outline:none}
 .pillar{color:rgba(255,255,255,.09)}
 .pl-accent circle,.pl-accent-fill{opacity:.26}
 .hero__title{font-size:min(var(--step-5),11vh,6.1vw,7.6rem)}
-.hero__kolam{top:calc(50% + var(--header-h) / 2);transform:translateY(-50%)}
+.hero__art{top:calc(50% + var(--header-h) / 2);transform:translateY(-50%)}
 @media (max-width:860px){
   .hero{--pw:clamp(36px,11vw,68px)}
   .hero .wrap.hero__inner{padding-left:calc(var(--pw) + .7rem);padding-right:calc(var(--pw) + .7rem)}
   .hero__title{font-size:clamp(2.15rem,9.8vw,4.4rem)}
-  .hero__kolam{top:calc(50% + var(--header-h) / 2)}
+  .hero__art{top:calc(50% + var(--header-h) / 2)}
 }
 /* Wide screens: the centred content column only needs pillar clearance where the pillars actually reach it */
 @media (min-width:861px){
@@ -1147,3 +1147,28 @@ main:focus{outline:none}
   .faq__a{padding-right:0}
 }
 @media print{.faq__item:not([open]) .faq__a{display:block}}
+
+
+@media (min-width:861px){
+  .hero__art{width:min(40vw,620px);right:calc(var(--pw) + 2vw);opacity:.8}
+}
+
+@media (max-width:860px){
+  .hero__art{width:118vw;right:-30vw;top:calc(var(--header-h) + 1rem);transform:none;opacity:.42}
+}
+
+/* ---------- Hero art: four UX line patterns, one picked at random per visit ---------- */
+.hero__art .pattern{display:none;width:100%;height:auto;overflow:visible}
+.hero__art .pattern.is-on,.no-js .hero__art .pattern:first-child{display:block}
+.pt-line{fill:none;stroke:var(--white);stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round;opacity:.2}
+.pt-strong{opacity:.34}
+.pt-dash{stroke-dasharray:4 10;opacity:.14}
+.pt-acc{fill:none;stroke:var(--turmeric);stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.pt-dot{fill:var(--turmeric)}
+.pt-tint{fill:var(--turmeric);opacity:.16}
+.pt-label{fill:var(--turmeric);font-family:Barlow,system-ui,sans-serif;font-weight:600;font-size:22px}
+@keyframes pt-fade{from{opacity:0}to{opacity:1}}
+@media (prefers-reduced-motion:no-preference){
+  .js .hero__art .pattern.is-on .pt-draw{stroke-dasharray:1;stroke-dashoffset:1;animation:draw var(--t,1.2s) var(--ease-io) var(--d,.2s) forwards}
+  .js .hero__art .pattern.is-on .pt-fade{opacity:0;animation:pt-fade .6s var(--ease-out) var(--d,.2s) forwards}
+}
