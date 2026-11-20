@@ -251,10 +251,13 @@
      their pins, so they stay crisp and readable at any zoom. */
   const where = $('.where'), map = $('.map'), steps = $$('.where__step');
   const VIEWS = [
+    [-24, -48, 660, 776],   // India
     [146, 538, 124, 135],   // Tamil Nadu
-    [174, 580, 38, 36],     // Kunnathur + Gobichettipalayam (Erode district)
+    [175, 584, 34, 33],     // Kunnathur
+    [178, 578, 34, 33],     // Gobichettipalayam
     [232, 543, 38, 36]      // Chennai
   ];
+  const TN_VIEW = VIEWS[1];
   const PLACES = { kunnathur: [192.2, 599.8], gobi: [193.6, 595.3], chennai: [251, 561] };
   const route = map && $('.map__route', map);
   const tags = $$('.map__tag');
@@ -285,43 +288,64 @@
     const k = vb[2] / 124;
     pins.forEach(g => { g.querySelector('.map__dot').setAttribute('r', (1.5 * k).toFixed(3)); g.querySelector('.map__pulse').setAttribute('r', (3 * k).toFixed(3)); });
     if (route) route.style.strokeWidth = (0.9 * k).toFixed(3);
+    map.style.setProperty('--k', k.toFixed(3));
   };
+  // one-time ripple: the rings spread outward from Chennai the first time the map comes into view
+  const ripple = map && map.querySelector('.map__ripple');
+  if (ripple && 'IntersectionObserver' in window && !reduceMotion.matches) {
+    ripple.setAttribute('r', 0);
+    const io = new IntersectionObserver(es => {
+      if (!es.some(e => e.isIntersecting)) return;
+      io.disconnect();
+      const t0 = performance.now(), D = 2600, R = 700;
+      const tick = now => {
+        const t = Math.min((now - t0) / D, 1), e = 1 - Math.pow(1 - t, 3);
+        ripple.setAttribute('r', (R * e).toFixed(2));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    }, { threshold: 0.35 });
+    io.observe(map);
+  }
   const setStage = s => {
     if (where.dataset.stage === String(s)) return;
     where.dataset.stage = s;
-    const idx = Math.min(s, 2);
+    const idx = typeof s === 'number' ? Math.min(s, 2) : -1;
     steps.forEach((el, i) => el.classList.toggle('is-active', i === idx));
   };
   const updateWhere = () => {
     if (!where || !map) return;
     if (!story()) {
-      map.setAttribute('viewBox', VIEWS[0].join(' '));
+      map.setAttribute('viewBox', TN_VIEW.join(' '));
       where.dataset.stage = 'static';
       steps.forEach(el => el.classList.add('is-active'));
       if (route) route.style.strokeDashoffset = 0;
-      placeTags(VIEWS[0]);
+      placeTags(TN_VIEW);
       return;
     }
     const r = where.getBoundingClientRect();
     const total = where.offsetHeight - innerHeight;
     const p = clamp(-r.top / total, 0, 1);
-    // .00–.12 Tamil Nadu · .12–.34 zoom to Erode district · .46–.70 pan to Chennai · >.82 skyline
-    let v;
-    if (p < .12) v = VIEWS[0];
-    else if (p < .34) { const t = ease((p - .12) / .22); v = VIEWS[0].map((a, i) => lerp(a, VIEWS[1][i], t)); }
-    else if (p < .46) v = VIEWS[1];
-    else if (p < .70) { const t = ease((p - .46) / .24); v = VIEWS[1].map((a, i) => lerp(a, VIEWS[2][i], t)); }
-    else v = VIEWS[2];
+    // India → Tamil Nadu → Kunnathur → Gobichettipalayam → Chennai, then the skyline
+    const K = [[0, .06], [.18, .24], [.38, .44], [.52, .58], [.76, .88]]; // [arrive, leave] for each view
+    let v = VIEWS[4];
+    for (let i = 0; i < K.length; i++) {
+      if (p < K[i][1]) { v = VIEWS[i]; break; }
+      if (i + 1 < K.length && p < K[i + 1][0]) {
+        const t = ease((p - K[i][1]) / (K[i + 1][0] - K[i][1]));
+        v = VIEWS[i].map((a, j) => lerp(a, VIEWS[i + 1][j], t)); break;
+      }
+    }
     map.setAttribute('viewBox', v.map(n => n.toFixed(2)).join(' '));
     if (route) {
       let drawn = 0;
-      if (p >= .24 && p < .36) drawn = seg1 * ease((p - .24) / .12);
-      else if (p >= .36 && p < .48) drawn = seg1;
-      else if (p >= .48) drawn = seg1 + (routeLen - seg1) * ease(clamp((p - .48) / .22, 0, 1));
+      if (p >= .44 && p < .52) drawn = seg1 * ease((p - .44) / .08);
+      else if (p >= .52 && p < .58) drawn = seg1;
+      else if (p >= .58) drawn = seg1 + (routeLen - seg1) * ease(clamp((p - .58) / .18, 0, 1));
       route.style.strokeDashoffset = (routeLen - drawn).toFixed(2);
     }
     placeTags(v);
-    setStage(p < .3 ? 0 : p < .62 ? 1 : p < .82 ? 2 : 3);
+    setStage(p < .12 ? 'india' : p < .31 ? 'tn' : p < .48 ? 0 : p < .67 ? 1 : p < .88 ? 2 : 3);
   };
 
 
@@ -432,6 +456,61 @@
     });
     addEventListener('scroll', () => requestAnimationFrame(para), { passive: true });
     para();
+  }
+
+  /* ---------- Experience timeline on phones: swipe hint, position, previous/next ---------- */
+  const cnav = career && $('.career__nav', career);
+  if (cnav && cv && cCos.length) {
+    const nameEl = $('.career__name', cnav), numEl = $('.career__num', cnav);
+    const prev = $('[data-dir="-1"]', cnav), next = $('[data-dir="1"]', cnav);
+    let cur = -1, peeking = false, touched = false;
+    const current = () => {
+      const x = cv.scrollLeft + cv.clientWidth * .5; let i = 0;
+      cCos.forEach((el, k) => { if (el.offsetLeft <= x) i = k; });
+      return i;
+    };
+    const syncNav = () => {
+      const max = cv.scrollWidth - cv.clientWidth, p = max > 0 ? cv.scrollLeft / max : 1, end = p > .985;
+      career.style.setProperty('--cp', Math.max(.04, p).toFixed(3));
+      career.classList.toggle('is-end', end);
+      if (!peeking && cv.scrollLeft > 24) career.classList.add('is-swiped');
+      const i = current();
+      if (i !== cur) {
+        cur = i;
+        nameEl.textContent = cCos[i].querySelector('.co__name').textContent;
+        numEl.textContent = (i + 1) + ' of ' + cCos.length;
+      }
+      prev.setAttribute('aria-disabled', String(cv.scrollLeft < 4));
+      next.setAttribute('aria-disabled', String(end));
+    };
+    const go = d => {
+      let left;
+      if (d > 0 && cv.scrollLeft < 4) left = cCos[0].offsetLeft - 20;
+      else if (d < 0 && cur === 0) left = 0;
+      else left = cCos[clamp(cur + d, 0, cCos.length - 1)].offsetLeft - 20;
+      touched = true; career.classList.add('is-swiped');
+      cv.scrollTo({ left: Math.max(0, left), behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    };
+    prev.addEventListener('click', () => go(-1));
+    next.addEventListener('click', () => go(1));
+    cv.addEventListener('scroll', () => requestAnimationFrame(syncNav), { passive: true });
+    cv.addEventListener('pointerdown', () => { touched = true; peeking = false; }, { passive: true });
+    addEventListener('resize', syncNav, { passive: true });
+    syncNav();
+    // one-time peek so it is obvious the line continues sideways
+    if (!reduceMotion.matches && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => {
+        if (!es.some(e => e.isIntersecting)) return;
+        io.disconnect();
+        if (!matchMedia('(max-width: 860px)').matches || cv.scrollLeft > 0) return;
+        setTimeout(() => {
+          if (touched) return;
+          peeking = true; cv.scrollTo({ left: 120, behavior: 'smooth' });
+          setTimeout(() => { if (!touched) cv.scrollTo({ left: 0, behavior: 'smooth' }); setTimeout(() => { peeking = false; }, 700); }, 750);
+        }, 500);
+      }, { threshold: .5 });
+      io.observe(cv);
+    }
   }
 
   /* ---------- Scroll loop ---------- */
