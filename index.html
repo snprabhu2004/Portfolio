@@ -35,7 +35,7 @@
 
 <link rel="preload" href="assets/fonts/barlow-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/barlow-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="assets/css/style.css?v=20261122l">
+<link rel="stylesheet" href="assets/css/style.css?v=20261122m">
 <script>document.documentElement.classList.replace('no-js','js')</script>
 
 <script type="application/ld+json">
@@ -302,7 +302,7 @@
       "creator": {
        "@id": "https://www.prabhunatarajan.com/#person"
       },
-      "url": "https://www.prabhunatarajan.com/#work"
+      "url": "https://www.prabhunatarajan.com/work/food-court-kiosk.html"
      }
     }
    ]
@@ -456,7 +456,30 @@
         <p class="section-intro">Products I’ve shaped, from mortgage dashboards to food-court kiosks. Open any project to see the screens.</p>
       </header>
 
-      <article class="project" aria-labelledby="p-nebuloan">
+      <article class="project" aria-labelledby="p-kiosk">
+        <a class="project__media project__media--art" href="work/food-court-kiosk.html" data-cursor="Read" aria-label="Read the self-ordering kiosk case study">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 400 220" class="kiosk">
+              <rect x="120" y="14" width="160" height="196" rx="14" class="kiosk__body"/>
+              <rect x="136" y="30" width="128" height="104" rx="6" class="kiosk__screen"/>
+              <text x="200" y="62" text-anchor="middle" class="kiosk__heading">Collect your receipts</text>
+              <text x="200" y="98" text-anchor="middle" class="kiosk__count"><tspan class="kiosk__n">3</tspan> of 3</text>
+              <text x="200" y="120" text-anchor="middle" class="kiosk__sub">Juice, tea, meals</text>
+              <rect x="150" y="150" width="100" height="8" rx="4" class="kiosk__slot"/>
+              <g class="kiosk__receipts">
+                <g class="receipt r1"><rect x="160" y="154" width="80" height="44"/><path d="M170 166h40M170 176h56M170 186h30"/></g>
+              </g>
+            </svg>
+        </a>
+        <div class="project__body">
+          <p class="project__meta">Retail, self-service kiosk</p>
+          <h3 id="p-kiosk" class="project__title">Self-ordering kiosk for food courts</h3>
+          <p>One kiosk, many small shops — juice, tea, meals — and a printed receipt for each. I designed the full ordering experience and reworked the post-payment screen to show every receipt as it prints, with a running count, so nobody walks away without the slip they need to collect their order.</p>
+          <dl class="project__facts"><div><dt>Role</dt><dd>End-to-end UX/UI design</dd></div><div><dt>Focus</dt><dd>Many shops, one order</dd></div></dl>
+          <a class="link-btn" href="work/food-court-kiosk.html">Read the case study</a>
+        </div>
+      </article>
+
+      <article class="project project--flip" aria-labelledby="p-nebuloan">
         <button class="project__media" type="button" data-gallery="nebuloan" data-cursor="View" aria-label="View Nebuloan screens">
           <img src="assets/img/nebuloan-loan-1600.webp" srcset="assets/img/nebuloan-loan-800.webp 800w, assets/img/nebuloan-loan-1600.webp 1600w" sizes="(min-width: 960px) 58vw, 100vw" width="1600" height="1148" alt="Nebuloan loan view in dark mode: property photo, map, image gallery and loan details" loading="lazy" decoding="async">
         </button>
@@ -469,7 +492,7 @@
         </div>
       </article>
 
-      <article class="project project--flip" aria-labelledby="p-sba">
+      <article class="project" aria-labelledby="p-sba">
         <button class="project__media" type="button" data-gallery="sba" data-cursor="View" aria-label="View SBA application screens">
           <img src="assets/img/sba-02-1440.webp" srcset="assets/img/sba-02-800.webp 800w, assets/img/sba-02-1440.webp 1440w" sizes="(min-width: 960px) 58vw, 100vw" width="1440" height="978" alt="Business information step of the SBA disaster loan application, with a vertical step tracker on the left" loading="lazy" decoding="async">
         </button>
@@ -482,7 +505,7 @@
         </div>
       </article>
 
-      <article class="project" aria-labelledby="p-emirates">
+      <article class="project project--flip" aria-labelledby="p-emirates">
         <button class="project__media project__media--duo" type="button" data-gallery="emirates" data-cursor="View" aria-label="View Emirates Raffle screens">
           <img src="assets/img/emirates-cover-1440.webp" srcset="assets/img/emirates-cover-800.webp 800w, assets/img/emirates-cover-1440.webp 1440w" sizes="(min-width: 960px) 58vw, 100vw" width="1440" height="900" alt="Emirates Raffle home page: a globe held in leafy hands and trending raffle cards with countdowns" loading="lazy" decoding="async">
           <img class="phone" src="assets/img/emirates-mobile-390.webp" width="390" height="844" alt="" loading="lazy" decoding="async">
@@ -496,7 +519,7 @@
         </div>
       </article>
 
-      <article class="project project--flip" aria-labelledby="p-lykas">
+      <article class="project" aria-labelledby="p-lykas">
         <button class="project__media" type="button" data-gallery="lykas" data-cursor="View" aria-label="View Lykas screens">
           <img src="assets/img/lykas-cover-1440.webp" srcset="assets/img/lykas-cover-800.webp 800w, assets/img/lykas-cover-1440.webp 1440w" sizes="(min-width: 960px) 58vw, 100vw" width="1440" height="900" alt="Lykas landing page: 'Take control of your financial life' above an illustration of a cyclist in an autumn park" loading="lazy" decoding="async">
         </button>
@@ -509,41 +532,22 @@
         </div>
       </article>
 
-      <div class="project-pair">
-        <article class="mini" aria-labelledby="p-samsung">
-          <div class="mini__art" aria-hidden="true">
-            <svg viewBox="0 0 400 220" class="flow">
+      <article class="project project--flip" aria-labelledby="p-samsung">
+        <div class="project__media project__media--art" aria-hidden="true">
+          <svg viewBox="0 0 400 220" class="flow">
               <g class="flow__step"><rect x="14" y="60" width="96" height="120" rx="10"/><path d="M30 86h50M30 104h64M30 122h40"/><text x="62" y="160" text-anchor="middle">Cart</text></g>
               <path class="flow__arrow" d="M116 120h28m-8-8 8 8-8 8"/>
               <g class="flow__step"><rect x="152" y="60" width="96" height="120" rx="10"/><rect x="168" y="82" width="64" height="18" rx="4"/><rect x="168" y="108" width="64" height="18" rx="4"/><text x="200" y="160" text-anchor="middle">Payment</text></g>
               <path class="flow__arrow" d="M254 120h28m-8-8 8 8-8 8"/>
               <g class="flow__step flow__step--done"><rect x="290" y="60" width="96" height="120" rx="10"/><path class="flow__tick" d="M318 112l14 14 26-30"/><text x="338" y="160" text-anchor="middle">Thank you</text></g>
             </svg>
-          </div>
+        </div>
+        <div class="project__body">
           <p class="project__meta">eCommerce, 2016–2026</p>
-          <h3 id="p-samsung" class="mini__title">Samsung.com/us checkout and My Account</h3>
+          <h3 id="p-samsung" class="project__title">Samsung.com/us checkout and My Account</h3>
           <p>Ten years in Samsung’s Digital e-Commerce division on the screens that turn browsing into orders: cart, payment and confirmation, plus My Account. Responsive, localised for several countries including Arabic right-to-left, and backed by 250+ transactional email templates for orders, exchanges and offers.</p>
-        </article>
-
-        <article class="mini" aria-labelledby="p-kiosk">
-          <div class="mini__art" aria-hidden="true">
-            <svg viewBox="0 0 400 220" class="kiosk">
-              <rect x="120" y="14" width="160" height="196" rx="14" class="kiosk__body"/>
-              <rect x="136" y="30" width="128" height="104" rx="6" class="kiosk__screen"/>
-              <text x="200" y="62" text-anchor="middle" class="kiosk__heading">Collect your receipts</text>
-              <text x="200" y="98" text-anchor="middle" class="kiosk__count"><tspan class="kiosk__n">3</tspan> of 3</text>
-              <text x="200" y="120" text-anchor="middle" class="kiosk__sub">Juice, tea, meals</text>
-              <rect x="150" y="150" width="100" height="8" rx="4" class="kiosk__slot"/>
-              <g class="kiosk__receipts">
-                <g class="receipt r1"><rect x="160" y="154" width="80" height="44"/><path d="M170 166h40M170 176h56M170 186h30"/></g>
-              </g>
-            </svg>
-          </div>
-          <p class="project__meta">Retail, self-service kiosk</p>
-          <h3 id="p-kiosk" class="mini__title">Self-ordering kiosk for food courts</h3>
-          <p>One kiosk, many small shops — juice, tea, meals — and a printed receipt for each. I designed the full ordering experience and reworked the post-payment screen to show every receipt as it prints, with a running count, so nobody walks away without the slip they need to collect their order.</p>
-        </article>
-      </div>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -968,6 +972,6 @@
   <div class="gallery__body" tabindex="0" aria-label="Project screens, scrollable"></div>
 </dialog>
 
-<script src="assets/js/main.js?v=20261122l" defer></script>
+<script src="assets/js/main.js?v=20261122m" defer></script>
 </body>
 </html>

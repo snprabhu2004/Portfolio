@@ -65,7 +65,7 @@
 
   /* ---------- Current section in nav ---------- */
   const navLinks = $$('.site-nav ul a');
-  const sections = navLinks.map(a => $(a.getAttribute('href'))).filter(Boolean);
+  const sections = navLinks.map(a => { const h = a.getAttribute('href') || ''; return h.startsWith('#') ? $(h) : null; }).filter(Boolean);
   if ('IntersectionObserver' in window) {
     const io = new IntersectionObserver(entries => {
       entries.forEach(en => {
