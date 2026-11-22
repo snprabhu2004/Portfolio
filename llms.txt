@@ -36,18 +36,20 @@
 - 2008: Jeevan Technologies — UI Designer & Developer
 - 2005–2008: Swagatham Info Media (now TheMangoMedia) — Lead Web Designer
 
-## Certifications and education
+## Certifications
 
 - Certified Usability Architect (CUA)™ — Human Factors International
 - AI for Human-Centered Design — Primer — Human Factors International
 - Design Thinking: The Ultimate Guide — Interaction Design Foundation (Top 10% course taker)
 - User Experience: The Beginner’s Guide — Interaction Design Foundation
 - Accessibility Foundations — Uxcel
-- Bachelor of Computer Applications — Gobi Arts & Science College, Bharathiar University
 
-## Skills
+## Capabilities
 
-User research, personas, journey mapping, heuristic evaluation, usability testing, information architecture, wireframing, prototyping, interaction design, micro-interactions, design systems, WCAG accessibility, responsive design, Figma, HTML, CSS, SCSS, JavaScript, design-to-dev handoff.
+- Research: user research, personas, journey mapping, heuristic evaluation, usability testing
+- Design: information architecture, wireframing, prototyping, interaction design, micro-interactions, design systems, responsive design
+- Accessibility and front-end: WCAG accessibility, HTML, CSS, SCSS, JavaScript, design-to-dev handoff
+- Tools: Figma, FigJam, Adobe Creative Suite
 
 ## Common questions
 
