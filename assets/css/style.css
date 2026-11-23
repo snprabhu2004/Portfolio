@@ -1341,3 +1341,38 @@ a.link-btn{text-decoration:none}
 /* Hero lines keep room for descenders inside their reveal mask, but the padding no longer adds to the line spacing */
 .hero__title .line{padding:.06em 0 .16em;margin:0 0 -.22em}
 .hero__title .line:last-child{margin-bottom:-.14em}
+
+/* ---------- FAQ: accordion animation under "Common questions" (rows open one at a time) ---------- */
+.faq__anim{--ab:var(--ink);--ab-accent:var(--rani);margin-top:clamp(2rem,4vw,3rem);width:min(100%,300px)}
+.ux--acc{display:block;width:100%;height:auto;overflow:visible}
+.ux--acc *{transform-box:view-box}
+.ux-acc-box{fill:none;stroke:var(--ab);stroke-width:1.5;stroke-opacity:.2}
+.ux-acc-on{fill:none;stroke:var(--ab-accent);stroke-width:1.5;stroke-opacity:.7;opacity:0}
+.ux-acc-q{fill:none;stroke:var(--ab);stroke-width:3.5;stroke-linecap:round;opacity:.4}
+.ux-acc-ico{fill:none;stroke:var(--ab-accent);stroke-width:2.2;stroke-linecap:round}
+.ux-acc-a{fill:none;stroke:var(--ab);stroke-width:3;stroke-linecap:round;opacity:.22}
+.ux-acc-panel{opacity:0}
+/* Static state (also the reduced-motion view): first question open */
+.ux-acc-row--b,.ux-acc-row--c{transform:translateY(40px)}
+.ux-acc-on--a,.ux-acc-panel--a{opacity:1}
+.ux-acc-v--a,.ux-acc-box--a{opacity:0}
+@media (prefers-reduced-motion:no-preference){
+  .ux-acc-row--b{animation:ux-acc-move-b 9s var(--ease-io) infinite}
+  .ux-acc-row--c{animation:ux-acc-move-c 9s var(--ease-io) infinite}
+  .ux-acc-on--a,.ux-acc-panel--a{animation:ux-acc-open-a 9s var(--ease-io) infinite}
+  .ux-acc-on--b,.ux-acc-panel--b{animation:ux-acc-open-b 9s var(--ease-io) infinite}
+  .ux-acc-on--c,.ux-acc-panel--c{animation:ux-acc-open-c 9s var(--ease-io) infinite}
+  .ux-acc-v--a,.ux-acc-box--a{animation:ux-acc-shut-a 9s var(--ease-io) infinite}
+  .ux-acc-v--b,.ux-acc-box--b{animation:ux-acc-shut-b 9s var(--ease-io) infinite}
+  .ux-acc-v--c,.ux-acc-box--c{animation:ux-acc-shut-c 9s var(--ease-io) infinite}
+}
+/* A open, then: A closes → B slides up → B opens → B closes → C slides up → C opens → C closes → rows slide down → A opens */
+@keyframes ux-acc-move-b{0%,30%{transform:translateY(40px)}35%,92%{transform:translateY(0)}97%,100%{transform:translateY(40px)}}
+@keyframes ux-acc-move-c{0%,63%{transform:translateY(40px)}68%,92%{transform:translateY(0)}97%,100%{transform:translateY(40px)}}
+@keyframes ux-acc-open-a{0%,26%{opacity:1}30%,97%{opacity:0}100%{opacity:1}}
+@keyframes ux-acc-open-b{0%,35%{opacity:0}39%,59%{opacity:1}63%,100%{opacity:0}}
+@keyframes ux-acc-open-c{0%,68%{opacity:0}72%,88%{opacity:1}92%,100%{opacity:0}}
+@keyframes ux-acc-shut-a{0%,26%{opacity:0}30%,97%{opacity:1}100%{opacity:0}}
+@keyframes ux-acc-shut-b{0%,35%{opacity:1}39%,59%{opacity:0}63%,100%{opacity:1}}
+@keyframes ux-acc-shut-c{0%,68%{opacity:1}72%,88%{opacity:0}92%,100%{opacity:1}}
+@media (max-width:860px){.faq__anim{width:min(70%,240px);margin-top:1.5rem}}
