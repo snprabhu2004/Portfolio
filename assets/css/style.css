@@ -1376,3 +1376,18 @@ a.link-btn{text-decoration:none}
 @keyframes ux-acc-shut-b{0%,35%{opacity:1}39%,59%{opacity:0}63%,100%{opacity:1}}
 @keyframes ux-acc-shut-c{0%,68%{opacity:1}72%,88%{opacity:0}92%,100%{opacity:1}}
 @media (max-width:860px){.faq__anim{width:min(70%,240px);margin-top:1.5rem}}
+
+/* ---------- Large screens: keep the decorative animations next to the content ----------
+   The animation layer spans the content width (max 1440px) instead of the whole screen,
+   and side offsets are a share of that layer, so they match a 1440px screen on any larger one. */
+.abstract{left:max(0px,calc((100% - var(--max)) / 2));right:max(0px,calc((100% - var(--max)) / 2))}
+@media (min-width:1101px){
+  .abstract--work .ux--click{left:34%}
+  .abstract--work .ux--skeleton{right:5%}
+  .abstract--approach .ux--toggle{right:1.5%}
+  .abstract--approach .ux--check{left:2%}
+  .abstract--about .ux--tap{left:4%}
+  .abstract--about .ux--affinity{right:calc(var(--gutter) + 5%)}
+  .abstract--contact .ux--slider{right:3%}
+  .abstract--contact .ux--loader{right:8%}
+}
