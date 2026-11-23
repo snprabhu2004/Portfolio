@@ -210,7 +210,7 @@
 .kx__printer .kx__tray{width:82%}
 
 /* ---------- Line-of-sight diagram ---------- */
-.cs-sight svg{width:100%;height:auto;display:block;font-family:var(--font)}
+.cs-sight .cs-scroll>svg{width:100%;height:auto;display:block;font-family:var(--font)}
 .sg-floor{stroke:var(--ink);stroke-width:2;opacity:.25}
 .sg-k{fill:var(--peacock)}
 .sg-face{fill:var(--white);opacity:.9}
@@ -226,4 +226,20 @@
 .sg-label{font-size:22px;font-weight:700;fill:var(--ink)}
 .sg-label--red{fill:var(--rani)}
 .sg-small{font-size:17px;fill:var(--ink-soft)}
-@media (max-width:600px){.cs-sight svg{min-width:640px}}
+@media (max-width:600px){.cs-sight .cs-scroll>svg{min-width:640px}}
+
+/* ---------- Mobile: sideways-scroll indicator (label + scroll bar) and a one-time peek ---------- */
+.cs-swipe{display:flex;align-items:center;gap:1rem;margin-top:1rem;font-size:var(--step--1);color:var(--ink-soft)}
+.cs-swipe[hidden]{display:none}
+.cs-swipe__label{display:inline-flex;align-items:center;gap:.5rem;font-weight:600;white-space:nowrap;color:var(--ink)}
+.cs-swipe__label svg{width:22px;height:12px;flex:none;fill:none;stroke:var(--rani);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cs-swipe__track{position:relative;flex:1;height:4px;border-radius:2px;background:#DCDCDC;overflow:hidden}
+.cs-swipe__thumb{position:absolute;left:0;top:0;bottom:0;border-radius:2px;background:var(--rani);transition:transform .12s linear}
+.cs-section--grey .cs-swipe__track{background:#D2D2D2}
+.cs-steps.is-scrollable+.cs-swipe{margin-top:1.25rem}
+@media (prefers-reduced-motion:no-preference){
+  .cs-swipe:not(.is-used) .cs-swipe__label svg{animation:cs-nudge 1.2s ease-in-out infinite}
+  .cs-peek>*{animation:cs-peek 1.3s var(--ease-io)}
+}
+@keyframes cs-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
+@keyframes cs-peek{0%,100%{transform:translateX(0)}45%,55%{transform:translateX(-48px)}}

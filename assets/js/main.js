@@ -340,7 +340,7 @@
   const trail = career && $('.career__trail', career);
   const cDots = career ? $$('.co__dots i', career) : [];
   const cCos = career ? $$('.co', career) : [];
-  let pts = [], pinned = false, dist = 0, lastIdx = -1, trackW = 1, railY = 0;
+  let pts = [], pinned = false, dist = 0, travel = 0, holdEnd = 0, lastIdx = -1, trackW = 1, railY = 0;
   const easeIO = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const small = () => matchMedia('(max-width: 860px)').matches;
   let HOP = 30, JUMP = 96;
@@ -355,7 +355,10 @@
     career.style.height = '';
     if (pinned) {
       dist = Math.max(0, ctrack.scrollWidth - cv.clientWidth);
-      career.style.height = (innerHeight + dist * 1.6) + 'px';
+      travel = dist * 1.07;
+      // Extra pause on the last card ("Now", available for work) before the next section scrolls in.
+      holdEnd = Math.round(innerHeight * .8);
+      career.style.height = (innerHeight + travel + holdEnd) + 'px';
     }
     HOP = small() ? 24 : 28; JUMP = small() ? 60 : (innerHeight < 820 ? 70 : 86);
     const tr = ctrack.getBoundingClientRect();
@@ -380,9 +383,8 @@
     if (!career || pts.length < 2) return;
     let p;
     if (pinned) {
-      const total = career.offsetHeight - innerHeight;
-      // Small hold at both ends so the first and last stops can be read.
-      p = clamp((-career.getBoundingClientRect().top / (total || 1) - .04) / .92, 0, 1);
+      // Small hold at the start; at the end the same small hold plus holdEnd, so the last card stays in view.
+      p = clamp((-career.getBoundingClientRect().top - travel * .04) / ((travel * .92) || 1), 0, 1);
       ctrack.style.transform = `translate3d(${(-p * dist).toFixed(1)}px,0,0)`;
     } else {
       const max = cv.scrollWidth - cv.clientWidth;

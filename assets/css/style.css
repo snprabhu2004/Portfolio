@@ -611,11 +611,11 @@ main:focus{outline:none}
 .career.has-ball .co.is-active .co__name{color:var(--white)}
 .career.has-ball .co.is-reached:not(.is-active) .co__name{color:#C9C9C9}
 
-.career__ball{display:none;position:absolute;left:0;top:0;width:34px;height:34px;margin:-17px 0 0 -17px;border-radius:50%;
-  background:radial-gradient(circle at 35% 30%,#FF8A7F,var(--turmeric) 45%,#B30D06);box-shadow:0 0 0 8px rgba(255,59,47,.16),0 0 40px rgba(255,59,47,.55);
+.career__ball{display:none;position:absolute;left:0;top:0;width:24px;height:24px;margin:-12px 0 0 -12px;border-radius:50%;border:2px solid rgba(255,255,255,.9);
+  background:var(--turmeric);box-shadow:0 0 0 8px rgba(255,59,47,.18);
   pointer-events:none;will-change:transform;z-index:3}
 .career__shadow{display:none;position:absolute;left:0;top:var(--rail-y);width:44px;height:10px;margin:-5px 0 0 -22px;border-radius:50%;background:rgba(255,59,47,.45);filter:blur(4px);pointer-events:none;will-change:transform;z-index:2}
-.career.has-ball .career__ball,.career.has-ball .career__shadow{display:block}
+.career.has-ball .career__ball{display:block}
 
 /* Pinned mode (desktop, motion allowed): vertical page scroll moves the line sideways */
 .career.is-pinned .career__frame{position:sticky;top:0;height:100vh;padding:var(--header-h) 0 0;overflow:hidden;display:flex;align-items:center}
@@ -757,9 +757,9 @@ main:focus{outline:none}
 
 /* ---------- Option 2: abstract gradients on black backgrounds ----------
    Mostly black, with soft deep-red glows that drift very slowly. */
-.hero,.approach,.career__frame,.site-footer{isolation:isolate}
+.hero,.approach,.site-footer{isolation:isolate}
 .site-footer{position:relative;overflow:hidden}
-.hero::before,.approach::before,.career__frame::before,.site-footer::before{
+.hero::before,.approach::before,.site-footer::before{
   content:"";position:absolute;inset:-25%;z-index:-1;pointer-events:none;background:var(--glow);will-change:transform
 }
 .hero{--glow:
@@ -769,15 +769,10 @@ main:focus{outline:none}
 .approach{--glow:
   radial-gradient(36% 50% at 92% 8%,rgba(140,9,5,.42),transparent 70%),
   radial-gradient(40% 42% at 2% 98%,rgba(190,14,8,.26),transparent 70%)}
-.career__frame{--glow:
-  radial-gradient(40% 34% at 18% 14%,rgba(110,6,3,.38),transparent 70%),
-  radial-gradient(34% 40% at 86% 86%,rgba(190,14,8,.22),transparent 70%),
-  radial-gradient(20% 22% at 55% 45%,rgba(255,59,47,.05),transparent 70%)}
 .site-footer{--glow:radial-gradient(42% 140% at 86% 100%,rgba(140,9,5,.36),transparent 70%)}
 @media (prefers-reduced-motion:no-preference){
   .hero::before{animation:glow-drift 26s ease-in-out infinite alternate}
   .approach::before{animation:glow-drift 32s ease-in-out infinite alternate-reverse}
-  .career__frame::before{animation:glow-drift 30s ease-in-out infinite alternate}
   .site-footer::before{animation:glow-drift 36s ease-in-out infinite alternate-reverse}
 }
 @keyframes glow-drift{
@@ -1042,7 +1037,7 @@ main:focus{outline:none}
 .map__gap{fill:#F0F0F0}
 .map__tn-rings{fill:none;stroke:var(--turmeric);stroke-width:2px;vector-effect:non-scaling-stroke;stroke-linecap:round;stroke-linejoin:round}
 @media (min-width:861px) and (prefers-reduced-motion:no-preference){
-  .js .where{height:460vh}
+  .js .where{height:340vh}
   .js .where[data-stage="india"] .map__pin{opacity:0}
 }
 
@@ -1193,3 +1188,150 @@ a.project__media--art{cursor:pointer;text-decoration:none}
 .project__media--art svg{width:100%;height:100%;overflow:visible;transition:transform 1.1s var(--ease-out)}
 a.project__media--art:hover svg,a.project__media--art:focus-visible svg{transform:scale(1.04)}
 a.link-btn{text-decoration:none}
+
+/* ---------- Capabilities: two more UX animations (search autocomplete, drag to reorder) ---------- */
+.caps-block{position:relative}
+.caps-block>:not(.abstract){position:relative;z-index:1}
+.abstract--caps{--ab:var(--white);--ab-accent:var(--turmeric)}
+.abstract--caps>.ab{translate:none}
+.abstract--caps .ux--search{width:min(17vw,220px);right:0;top:calc(-1 * clamp(4.5rem,7.5vw,6.25rem))}
+.abstract--caps .ux--drag{width:min(10vw,130px);left:0;bottom:calc(-1 * clamp(5.5rem,9.2vw,8.5rem))}
+.ux-strong{opacity:.4}
+.ux-typed{fill:var(--ab);opacity:.35;transform-origin:left center}
+.ux-caret{fill:var(--ab-accent);transform:translateX(92px)}
+.ux-hl{fill:var(--ab-accent);opacity:.22;transform:translateY(26px)}
+.ux-card{fill:#000}
+.ux-grip{fill:none;stroke:var(--ab);stroke-width:3.2;stroke-linecap:round;opacity:.35}
+.ux-grip--on{stroke:var(--ab-accent);opacity:.8}
+.ux-lift{fill:none;stroke:var(--ab-accent);stroke-width:2;opacity:0}
+.ux-grab{fill:var(--ab);opacity:.5;stroke:#000;stroke-width:1.2;stroke-linejoin:round}
+.ux-dragA,.ux-dragB{transform-origin:center}
+@media (prefers-reduced-motion:no-preference){
+  .ux-typed{animation:ux-type 6s infinite}
+  .ux-caret{animation:ux-caret 6s infinite,ux-blink 1s steps(2,jump-none) infinite}
+  .ux-drop{animation:ux-drop 6s var(--ease-io) infinite}
+  .ux-hl{animation:ux-hl 6s var(--ease-io) infinite}
+  .ux-dragA{animation:ux-dragA 3.4s var(--ease-io) infinite alternate}
+  .ux-dragB{animation:ux-dragB 3.4s var(--ease-io) infinite alternate}
+  .ux-lift{animation:ux-lift 3.4s var(--ease-io) infinite alternate}
+}
+@keyframes ux-type{0%{transform:scaleX(0);animation-timing-function:steps(7,end)}30%,86%{transform:scaleX(1)}94%,100%{transform:scaleX(0)}}
+@keyframes ux-caret{0%{transform:translateX(0);animation-timing-function:steps(7,end)}30%,86%{transform:translateX(92px)}94%,100%{transform:translateX(0)}}
+@keyframes ux-blink{0%{opacity:.9}100%{opacity:0}}
+@keyframes ux-drop{0%,30%{opacity:0;transform:translateY(-6px)}37%,78%{opacity:1;transform:none}86%,100%{opacity:0;transform:translateY(-6px)}}
+@keyframes ux-hl{0%,40%{opacity:0;transform:translateY(0)}45%,52%{opacity:.22;transform:translateY(0)}60%,66%{opacity:.22;transform:translateY(26px)}70%{opacity:.5;transform:translateY(26px)}76%,100%{opacity:.22;transform:translateY(26px)}}
+@keyframes ux-dragA{0%,10%{transform:translate(0,0) scale(1)}24%{transform:translate(6px,-3px) scale(1.04)}72%{transform:translate(6px,43px) scale(1.04)}86%,100%{transform:translate(0,46px) scale(1)}}
+@keyframes ux-dragB{0%,34%{transform:translateY(0)}62%,100%{transform:translateY(-46px)}}
+@keyframes ux-lift{0%,12%{opacity:0}24%,72%{opacity:.85}86%,100%{opacity:0}}
+@media (max-width:860px){
+  .abstract--caps .ux--drag{display:none}
+  .abstract--caps .ux--search{width:32vw;right:0;top:-5.25rem}
+}
+
+/* ---------- About: affinity mapping (sticky notes sort into two themes) ---------- */
+.abstract--about .ux--affinity{width:min(12vw,160px);right:4vw;top:1.5rem;translate:none}
+.ux-note{transform-origin:center}
+.ux-note rect{fill:var(--white);stroke:var(--ab);stroke-width:1.5;stroke-opacity:.3}
+.ux-note path{fill:none;stroke:var(--ab);stroke-width:2.5;stroke-linecap:round;opacity:.2}
+.ux-note--a rect{fill:#FFE9E7;stroke:var(--ab-accent);stroke-opacity:.55}
+.ux-note--a path{stroke:var(--ab-accent);opacity:.45}
+.ux-cluster{fill:none;stroke:var(--ab);stroke-width:1.5;stroke-dasharray:5 5;opacity:.35}
+.ux-theme{fill:var(--ab);opacity:.25;transform-origin:left center}
+.ux-theme--a{fill:var(--ab-accent);opacity:.6}
+@media (prefers-reduced-motion:no-preference){
+  .ux-note{animation:ux-sort 7s var(--ease-io) infinite;animation-delay:var(--d)}
+  .ux-cluster{animation:ux-cluster 7s var(--ease-out) infinite}
+  .ux-theme{animation:ux-theme 7s var(--ease-out) infinite}
+}
+@keyframes ux-sort{
+  0%,12%{transform:translate(var(--x),var(--y)) rotate(var(--r))}
+  40%,80%{transform:none}
+  96%,100%{transform:translate(var(--x),var(--y)) rotate(var(--r))}
+}
+@keyframes ux-cluster{0%,40%{opacity:0}48%,78%{opacity:.35}86%,100%{opacity:0}}
+@keyframes ux-theme{0%,46%{transform:scaleX(0)}54%,78%{transform:scaleX(1)}86%,100%{transform:scaleX(0)}}
+@media (max-width:860px){.abstract--about .ux--affinity{width:26vw;right:var(--gutter,1.25rem);top:.5rem}}
+
+/* ---------- Experience: flat black background, two UX animations in the intro column ---------- */
+.career__frame{background:#000}
+.abstract--career{z-index:0}
+.abstract--career>.ab{translate:none}
+.abstract--career .ux--tabs{width:min(16vw,210px);right:4rem;top:7%}
+.abstract--career .ux--swipe{width:min(13vw,170px);left:-1.5rem;bottom:4%}
+.ux-tabpill{fill:var(--ab-accent);fill-opacity:.2;stroke:var(--ab-accent);stroke-width:1.5;stroke-opacity:.8}
+.ux-panel--2,.ux-panel--3{opacity:0}
+.ux-accentline{stroke:var(--ab-accent);opacity:.7}
+.ux-touch{fill:var(--ab);opacity:0;transform-origin:center}
+.ux-pagedot{fill:var(--ab-accent);transform:translateX(12px)}
+.ux-strip{transform:translateX(-128px)}
+@media (prefers-reduced-motion:no-preference){
+  .ux-tabpill{animation:ux-tabpill 6s var(--ease-io) infinite}
+  .ux-panel--1{animation:ux-p1 6s var(--ease-io) infinite}
+  .ux-panel--2{animation:ux-p2 6s var(--ease-io) infinite}
+  .ux-panel--3{animation:ux-p3 6s var(--ease-io) infinite}
+  .ux-strip{animation:ux-strip 6s var(--ease-io) infinite}
+  .ux-pagedot{animation:ux-page 6s var(--ease-io) infinite}
+  .ux-touch{animation:ux-touch 6s var(--ease-io) infinite}
+}
+@keyframes ux-tabpill{0%,28%{transform:translateX(0)}36%,61%{transform:translateX(70px)}69%,92%{transform:translateX(140px)}100%{transform:translateX(0)}}
+@keyframes ux-p1{0%,28%{opacity:1;transform:none}33%{opacity:0;transform:translateX(-10px)}95%{opacity:0;transform:translateX(10px)}100%{opacity:1;transform:none}}
+@keyframes ux-p2{0%,30%{opacity:0;transform:translateX(10px)}36%,61%{opacity:1;transform:none}66%,100%{opacity:0;transform:translateX(-10px)}}
+@keyframes ux-p3{0%,63%{opacity:0;transform:translateX(10px)}69%,92%{opacity:1;transform:none}97%,100%{opacity:0;transform:translateX(-10px)}}
+@keyframes ux-strip{0%,22%{transform:translateX(0)}32%,55%{transform:translateX(-128px)}65%,88%{transform:translateX(-256px)}97%,100%{transform:translateX(0)}}
+@keyframes ux-page{0%,22%{transform:translateX(0)}32%,55%{transform:translateX(12px)}65%,88%{transform:translateX(24px)}97%,100%{transform:translateX(0)}}
+@keyframes ux-touch{0%,18%{opacity:0;transform:translateX(0)}21%{opacity:.55;transform:translateX(0)}32%{opacity:0;transform:translateX(-56px)}33%,51%{opacity:0;transform:translateX(0)}54%{opacity:.55;transform:translateX(0)}65%{opacity:0;transform:translateX(-56px)}66%,100%{opacity:0;transform:translateX(0)}}
+@media (max-width:860px){.abstract--career{display:none}}
+
+/* ---------- Certifications: usability analysis (lens finds numbered issues, findings list fills) ---------- */
+.credentials{position:relative;overflow:clip}
+.credentials>.wrap{position:relative;z-index:1}
+.abstract--creds .ux--analyst{width:min(17vw,220px);right:var(--gutter);top:calc(var(--space-section) - 1.25rem);translate:none}
+.ux-find circle{fill:var(--ab-accent);opacity:.75}
+.ux-find path{fill:none;stroke:var(--ab);stroke-width:3;stroke-linecap:round;opacity:.22}
+.ux-issue{transform-origin:center}
+.ux-issue circle{fill:var(--ab-accent)}
+.ux-issue text{font-family:var(--font);font-size:10px;font-weight:700;fill:var(--white)}
+.ux-lens{transform:translate(52px,124px)}
+.ux-lens__glass{fill:var(--white);fill-opacity:.35;stroke:var(--ab);stroke-width:2.5;opacity:.6}
+.ux-lens__handle{fill:none;stroke:var(--ab);stroke-width:4;stroke-linecap:round;opacity:.6}
+.ux-lens{transform-box:view-box}
+@media (prefers-reduced-motion:no-preference){
+  .ux-lens{animation:ux-lens 7s var(--ease-io) infinite}
+  .ux-issue--1,.ux-find--1{animation:ux-found1 7s var(--ease-out) infinite}
+  .ux-issue--2,.ux-find--2{animation:ux-found2 7s var(--ease-out) infinite}
+  .ux-issue--3,.ux-find--3{animation:ux-found3 7s var(--ease-out) infinite}
+}
+@keyframes ux-lens{
+  0%{transform:translate(214px,128px)}
+  10%,22%{transform:translate(156px,30px)}
+  34%,46%{transform:translate(118px,100px)}
+  58%,72%{transform:translate(54px,124px)}
+  86%,100%{transform:translate(214px,128px)}
+}
+@keyframes ux-found1{0%,13%{opacity:0;transform:scale(.3)}17%,86%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(.3)}}
+@keyframes ux-found2{0%,37%{opacity:0;transform:scale(.3)}41%,86%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(.3)}}
+@keyframes ux-found3{0%,61%{opacity:0;transform:scale(.3)}65%,86%{opacity:1;transform:scale(1)}94%,100%{opacity:0;transform:scale(.3)}}
+@media (max-width:860px){.abstract--creds .ux--analyst{width:30vw;right:var(--gutter);top:.5rem}}
+
+/* ---------- Review fixes ---------- */
+/* Custom cursor: hidden until the mouse first moves (it no longer sits in the top-left corner) */
+.has-cursor .cursor.is-hidden{opacity:0}
+.has-cursor .cursor{transition:opacity .2s}
+/* Hero (desktop and tablet): buttons sit under the intro text, then the availability line */
+@media (min-width:861px){
+  .hero__foot{grid-template-columns:minmax(0,1fr);justify-items:start}
+}
+/* Hero (phones): availability line right under the greeting, above the headline */
+@media (max-width:860px){
+  .hero__inner{display:flex;flex-direction:column}
+  .hero__foot{display:contents}
+  .hero__hello{order:1}
+  .hero .status{order:2;margin:0 0 1rem}
+  .hero__title{order:3}
+  .hero__lede{order:4;margin-top:1.25rem}
+  .hero__actions{order:5;margin-top:1rem}
+}
+@media (max-width:860px) and (prefers-reduced-motion:no-preference){
+  .js .hero .status,.js .hero__lede,.js .hero__actions{opacity:0;animation:fade .9s var(--ease-out) .75s forwards}
+  .js .hero .status{animation-delay:.6s}
+}

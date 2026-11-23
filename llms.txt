@@ -76,3 +76,15 @@ Yes. He writes semantic, accessible HTML, CSS/SCSS and JavaScript, builds WCAG-c
 ### Can he work with teams outside India?
 
 Yes. He works from Chennai on Indian Standard Time (UTC+5:30) and has designed with teams in the US, the Gulf, Europe and Asia.
+
+### What freelance work does Prabhu take on?
+
+UX audits and usability reviews of an existing product, redesigns of key flows such as sign-up, checkout and long forms, design systems, and accessible, WCAG-compliant front-end builds. He can take on one part of a product or the whole journey, from research to shipped UI.
+
+### How does a freelance project with Prabhu start?
+
+Email me@prabhunatarajan.com with a few lines about the product, who uses it, what isn’t working and when you need it. That’s enough for a first conversation about scope and approach.
+
+### What does a client get at the end of a project?
+
+Whatever your team needs to build from: Figma designs and prototypes with developer-ready specs, or production-ready HTML, CSS and JavaScript. Accessibility is designed in from the start, not added at the end.

@@ -54,3 +54,49 @@
   }
   reduce.addEventListener?.('change', () => { if (replay) replay.hidden = reduce.matches; play(); });
 })();
+
+/* Mobile: show where content scrolls sideways (diagrams, flow steps).
+   A "Swipe to see more" label with a scroll bar under each scroller, and a one-time peek when it first comes into view. */
+(() => {
+  'use strict';
+  const els = [...document.querySelectorAll('.cs-scroll, .cs-steps')];
+  if (!els.length) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  els.forEach(el => {
+    const hint = document.createElement('div');
+    hint.className = 'cs-swipe';
+    hint.setAttribute('aria-hidden', 'true');
+    hint.innerHTML = '<span class="cs-swipe__label">Swipe to see more<svg viewBox="0 0 24 12"><path d="M1 6h20m-5-5 5 5-5 5"/></svg></span><span class="cs-swipe__track"><span class="cs-swipe__thumb"></span></span>';
+    el.after(hint);
+    const thumb = hint.querySelector('.cs-swipe__thumb');
+    let peeked = false;
+    const update = () => {
+      const max = el.scrollWidth - el.clientWidth;
+      const can = max > 2;
+      hint.hidden = !can;
+      el.classList.toggle('is-scrollable', can);
+      // Keyboard users can focus the scroller and use the arrow keys (the diagrams already have tabindex).
+      if (el.classList.contains('cs-steps')) {
+        if (can) { el.tabIndex = 0; el.setAttribute('aria-label', 'Ordering flow, five steps (scrolls sideways)'); }
+        else { el.removeAttribute('tabindex'); el.removeAttribute('aria-label'); }
+      }
+      if (!can) return;
+      const r = el.clientWidth / el.scrollWidth;
+      thumb.style.width = (r * 100).toFixed(2) + '%';
+      thumb.style.transform = `translateX(${((el.scrollLeft / max) * (1 / r - 1) * 100).toFixed(2)}%)`;
+      if (el.scrollLeft > 8) hint.classList.add('is-used');
+    };
+    el.addEventListener('scroll', () => requestAnimationFrame(update), { passive: true });
+    addEventListener('resize', update);
+    update();
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver(es => es.forEach(e => {
+        if (!e.isIntersecting || peeked || reduce.matches || !el.classList.contains('is-scrollable') || el.scrollLeft > 8) return;
+        peeked = true; io.disconnect();
+        el.classList.add('cs-peek');
+        setTimeout(() => el.classList.remove('cs-peek'), 1400);
+      }), { threshold: .6 });
+      io.observe(el);
+    }
+  });
+})();
