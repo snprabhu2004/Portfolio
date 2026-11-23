@@ -101,8 +101,8 @@
   const kiosk = $('.kiosk'), kioskN = $('.kiosk__n');
   if (kiosk && kioskN) {
     let n = 1;
-    kiosk.addEventListener('animationiteration', () => { n = n % 3 + 1; kioskN.textContent = n; });
-    kiosk.addEventListener('animationstart', () => { n = 1; kioskN.textContent = n; });
+    kiosk.addEventListener('animationiteration', e => { if (e.animationName !== 'print') return; n = n % 3 + 1; kioskN.textContent = n; });
+    kiosk.addEventListener('animationstart', e => { if (e.animationName !== 'print') return; n = 1; kioskN.textContent = n; });
   }
 
   /* ---------- Custom cursor ---------- */

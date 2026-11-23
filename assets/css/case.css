@@ -59,9 +59,7 @@
 .cs-problem__art figcaption{text-align:center;margin-inline:auto}
 .pb-body{fill:var(--peacock)}
 .pb-screen{fill:var(--white)}
-.pb-tick{fill:none;stroke:var(--ink);stroke-width:5;stroke-linecap:round;stroke-linejoin:round;opacity:.3}
-.pb-h{font-size:22px;font-weight:700;fill:var(--ink)}
-.pb-s{font-size:12.5px;fill:var(--ink-soft)}
+.pb-arrow{fill:none;stroke:var(--ink);stroke-width:9;stroke-linecap:round;stroke-linejoin:round;opacity:.55}
 .pb-slot{fill:#4A4A4A}
 .pb-r rect{fill:var(--white);stroke:var(--ink);stroke-width:2}
 .pb-r path{stroke:var(--ink);stroke-width:3;stroke-linecap:round;opacity:.3}
@@ -75,7 +73,7 @@
 .kx__replay:hover{color:var(--white)}
 
 .kx{width:min(100%,400px);margin-inline:auto;font-family:var(--font)}
-.kx__bezel{background:#141414;border:1px solid var(--line-dark);border-radius:30px;padding:18px 18px 26px}
+.kx__bezel{background:#141414;border:1px solid var(--line-dark);border-radius:30px;padding:18px}
 .kx__screen{background:var(--white);color:var(--ink);border-radius:16px;padding:26px 24px 22px}
 .kx__order{font-size:14px;color:#6B6B6B;font-weight:500}
 .kx__title{font-size:22px;font-weight:700;letter-spacing:-.01em;margin-top:6px;line-height:1.2}
@@ -161,3 +159,71 @@
   .cs-steps{grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:40%;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:.75rem;margin-inline:calc(var(--gutter) * -1);padding-inline:var(--gutter);scroll-padding-inline:var(--gutter)}
   .cs-steps li{scroll-snap-align:start}
 }
+
+/* ---------- Before / After labels ---------- */
+.cs-tag{display:inline-block;font-size:var(--step--1);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--rani);margin-bottom:1rem}
+[data-theme="dark"] .cs-tag{color:var(--turmeric)}
+.cs-figure figcaption b{color:var(--ink)}
+[data-theme="dark"] .cs-figure figcaption b,.cs-demo__figure figcaption b{color:var(--white)}
+
+/* ---------- After demo: receipt printing on screen + arrow to the slot ---------- */
+.kx__cue{display:grid;justify-items:center;gap:4px;margin-top:18px}
+.kx__mouth{position:relative;display:block;width:92px;height:48px;overflow:hidden;border-top:7px solid #141414;border-radius:4px 4px 0 0}
+.kx__paper{position:absolute;left:16px;right:16px;top:0;height:42px;background-color:var(--white);border:1.5px solid #141414;border-top:0;border-radius:0 0 2px 2px;
+  background-image:linear-gradient(#141414,#141414),linear-gradient(#141414,#141414),linear-gradient(#141414,#141414);background-repeat:no-repeat;
+  background-size:60% 2px,76% 2px,42% 2px;background-position:8px 10px,8px 19px,8px 28px;opacity:.9;transform:none}
+.kx__arrow{width:22px;height:32px;fill:none;stroke:var(--rani);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+@media (prefers-reduced-motion:no-preference){
+  .kx.is-printing .kx__paper{animation:kxfeed 1.7s cubic-bezier(.35,.1,.6,1) infinite}
+  .kx__arrow{animation:kxnudge 1.2s ease-in-out infinite}
+}
+@keyframes kxfeed{0%{transform:translateY(-102%)}70%,100%{transform:none}}
+@keyframes kxnudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(5px)}}
+.kx__hint{text-align:center}
+
+/* ---------- End to end: step descriptions + new wireframe parts ---------- */
+.cs-steps li>div{display:grid;gap:.35rem}
+.cs-steps p{font-size:var(--step--1);line-height:1.45;color:var(--ink-soft);max-width:24ch;margin-inline:auto}
+.st-o{fill:none;stroke:var(--ink);stroke-width:2.5;opacity:.35}
+.st-o--on{fill:var(--turmeric);stroke:var(--turmeric);opacity:1}
+.st-b--on{stroke:var(--turmeric);stroke-width:3}
+.st-card{fill:var(--peacock)}
+.st-qr{fill:none;stroke:var(--ink);stroke-width:3;stroke-dasharray:5 3;opacity:.5}
+.st-qrp{fill:none;stroke:var(--ink);stroke-width:3;opacity:.55}
+.st-slot{stroke:var(--ink);stroke-width:6;stroke-linecap:round}
+.st-paper{fill:var(--white);stroke:var(--ink);stroke-width:2}
+.st-arrow{fill:none;stroke:var(--rani);stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Platform tiles ---------- */
+.cs-tiles{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(1.5rem,3vw,3rem);margin-top:clamp(3rem,6vw,5rem)}
+.cs-tiles li{border-top:2px solid var(--ink);padding-top:1.25rem}
+.cs-tiles h3{font-size:var(--step-1);font-weight:700;letter-spacing:-.015em;line-height:1.15;margin-bottom:.6rem}
+.cs-tiles p{font-size:var(--text-body);line-height:1.5;color:var(--ink-soft);max-width:40ch}
+@media (max-width:960px){.cs-tiles{grid-template-columns:1fr}}
+@media (max-width:600px){.cs-steps{grid-auto-columns:58%}}
+@media (prefers-reduced-motion:reduce){.kx__paper,.kx__arrow{animation:none}}
+
+/* ---------- Printer sits lower than the screen (as on the real kiosk) ---------- */
+.kx__stand{width:24%;height:64px;margin:0 auto;background:#141414;border-inline:1px solid var(--line-dark)}
+.kx__printer{width:72%;margin:0 auto;background:#141414;border:1px solid var(--line-dark);border-radius:18px;padding:20px 0 14px}
+.kx__printer .kx__slot{width:82%;margin:0 auto}
+.kx__printer .kx__tray{width:82%}
+
+/* ---------- Line-of-sight diagram ---------- */
+.cs-sight svg{width:100%;height:auto;display:block;font-family:var(--font)}
+.sg-floor{stroke:var(--ink);stroke-width:2;opacity:.25}
+.sg-k{fill:var(--peacock)}
+.sg-face{fill:var(--white);opacity:.9}
+.sg-slot{fill:var(--turmeric)}
+.sg-p{fill:#BDBDBD}
+.sg-arm{fill:none;stroke:#BDBDBD;stroke-width:18;stroke-linecap:round}
+.sg-eye{fill:var(--ink)}
+.sg-cone{fill:var(--ink);opacity:.07}
+.sg-cone-edge{fill:none;stroke:var(--ink);stroke-width:2;stroke-dasharray:6 6;opacity:.45}
+.sg-miss{fill:none;stroke:var(--rani);stroke-width:2.5;stroke-dasharray:3 7;stroke-linecap:round}
+.sg-lead{stroke:var(--ink);stroke-width:2}
+.sg-lead--red{stroke:var(--rani)}
+.sg-label{font-size:22px;font-weight:700;fill:var(--ink)}
+.sg-label--red{fill:var(--rani)}
+.sg-small{font-size:17px;fill:var(--ink-soft)}
+@media (max-width:600px){.cs-sight svg{min-width:640px}}

@@ -26,6 +26,7 @@
       num.classList.remove('bump'); void num.offsetWidth; num.classList.add('bump');
     }
     kx.classList.toggle('is-done', done === rows.length);
+    kx.classList.toggle('is-printing', printing >= 0);
   };
 
   const stop = () => { timers.forEach(clearTimeout); timers = []; };
