@@ -1229,7 +1229,7 @@ a.link-btn{text-decoration:none}
 }
 
 /* ---------- About: affinity mapping (sticky notes sort into two themes) ---------- */
-.abstract--about .ux--affinity{width:min(12vw,160px);right:4vw;top:1.5rem;translate:none}
+.abstract--about .ux--affinity{width:min(11vw,150px);right:calc(var(--gutter) + 5vw);top:.75rem;translate:none}
 .ux-note{transform-origin:center}
 .ux-note rect{fill:var(--white);stroke:var(--ab);stroke-width:1.5;stroke-opacity:.3}
 .ux-note path{fill:none;stroke:var(--ab);stroke-width:2.5;stroke-linecap:round;opacity:.2}
@@ -1250,7 +1250,7 @@ a.link-btn{text-decoration:none}
 }
 @keyframes ux-cluster{0%,40%{opacity:0}48%,78%{opacity:.35}86%,100%{opacity:0}}
 @keyframes ux-theme{0%,46%{transform:scaleX(0)}54%,78%{transform:scaleX(1)}86%,100%{transform:scaleX(0)}}
-@media (max-width:860px){.abstract--about .ux--affinity{width:26vw;right:var(--gutter,1.25rem);top:.5rem}}
+@media (max-width:860px){.abstract--about .ux--affinity{width:26vw;right:calc(var(--gutter) + 5vw);top:.5rem}}
 
 /* ---------- Experience: flat black background, two UX animations in the intro column ---------- */
 .career__frame{background:#000}
