@@ -243,3 +243,6 @@
 }
 @keyframes cs-nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(5px)}}
 @keyframes cs-peek{0%,100%{transform:translateX(0)}45%,55%{transform:translateX(-48px)}}
+
+/* ---------- Large titles: line-height 1em ---------- */
+.cs-title,.cs-h2,.cs-statement{line-height:1em}

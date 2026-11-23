@@ -1335,3 +1335,9 @@ a.link-btn{text-decoration:none}
   .js .hero .status,.js .hero__lede,.js .hero__actions{opacity:0;animation:fade .9s var(--ease-out) .75s forwards}
   .js .hero .status{animation-delay:.6s}
 }
+
+/* ---------- Large titles: line-height 1em ---------- */
+.hero__title,.section-title,.where .section-title,.contact__title,.project__title,.caps-block__title,.caprow__title,.step h3{line-height:1em}
+/* Hero lines keep room for descenders inside their reveal mask, but the padding no longer adds to the line spacing */
+.hero__title .line{padding:.06em 0 .16em;margin:0 0 -.22em}
+.hero__title .line:last-child{margin-bottom:-.14em}
