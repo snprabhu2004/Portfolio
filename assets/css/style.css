@@ -1404,3 +1404,17 @@ a.link-btn{text-decoration:none}
 .tri-bg--corner{right:0;bottom:0;width:calc(var(--cell)*5);height:calc(var(--cell)*5);background-image:url("../img/tri-corner.svg")}
 .tri-bg--edge{right:0;top:50%;width:calc(var(--cell)*4);height:calc(var(--cell)*7);transform:translateY(-50%);background-image:url("../img/tri-edge.svg")}
 .contact .tri-bg{opacity:.12}
+
+/* Hero: tighter spacing between greeting, title and intro */
+.hero__hello{margin-bottom:clamp(.25rem,.8vw,.75rem)}
+.hero__foot{margin-top:clamp(1rem,2vw,1.75rem)}
+@media (max-width:720px){.hero__lede{margin-top:1rem}}
+
+/* How I work: the general approach, then a real project example set apart below it */
+.step .step__eg{margin-top:1.5rem;padding-top:1.25rem;border-top:1px dashed var(--line-dark);color:var(--on-dark)}
+.step__eg-label{display:block;margin-bottom:.4rem;font-size:var(--step--1);font-weight:600;color:var(--turmeric)}
+@supports (grid-template-rows:subgrid){
+  @media (min-width:601px){
+    .step{display:grid;grid-row:span 4;grid-template-rows:subgrid;align-content:start}
+  }
+}
