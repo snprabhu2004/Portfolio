@@ -96,8 +96,8 @@ main:focus{outline:none}
   will-change:transform;
 }
 .btn--small{min-height:44px;padding:.55em 1.2em;font-size:var(--step--1)}
-.btn--gold{--bg:var(--turmeric);--fg:var(--peacock);--bd:var(--turmeric)}
-.btn--gold:hover{--bg:var(--white);--bd:var(--white)}
+.btn--gold{--bg:var(--red);--fg:var(--white);--bd:var(--red)}
+.btn--gold:hover{--bg:var(--white);--fg:var(--peacock);--bd:var(--white)}
 .btn--ghost:hover{--bg:var(--white);--fg:var(--peacock);--bd:var(--white)}
 .btn:active{transform:scale(.97)}
 .link-btn{
@@ -134,8 +134,8 @@ main:focus{outline:none}
 .is-light .site-nav ul a:hover,.is-light .site-nav ul a[aria-current="true"]{color:var(--rani)}
 .site-nav ul a:hover::after,.site-nav ul a[aria-current="true"]::after{transform:translateX(-50%) scale(1)}
 .is-light .site-nav ul a::after{background:var(--rani)}
-.is-light .btn--gold{--bg:var(--peacock);--fg:var(--white);--bd:var(--peacock)}
-.is-light .btn--gold:hover{--bg:var(--rani);--bd:var(--rani)}
+.is-light .btn--gold{--bg:var(--red);--fg:var(--white);--bd:var(--red)}
+.is-light .btn--gold:hover{--bg:var(--peacock);--fg:var(--white);--bd:var(--peacock)}
 
 .menu-toggle{display:none;align-items:center;gap:.6rem;background:none;border:0;min-height:48px;padding:0 .25rem;cursor:pointer;font-weight:600;font-size:var(--step--1)}
 .menu-toggle__icon{width:26px;height:14px;position:relative}
@@ -157,7 +157,7 @@ main:focus{outline:none}
   .site-nav ul a{font-size:var(--step-3);font-weight:600;letter-spacing:-.02em}
   .site-nav ul a::after{left:auto;right:-1rem;bottom:50%;transform:translateY(50%) scale(0)}
   .site-nav ul a:hover::after{transform:translateY(50%) scale(1)}
-  .site-nav .btn--small{min-height:56px;font-size:var(--step-0);--bg:var(--turmeric);--fg:var(--peacock);--bd:var(--turmeric)}
+  .site-nav .btn--small{min-height:56px;font-size:var(--step-0);--bg:var(--red);--fg:var(--white);--bd:var(--red)}
   .menu-open .site-header{color:var(--on-dark);background:transparent;box-shadow:none;backdrop-filter:none}
   .menu-open{overflow:hidden}
 }
@@ -1179,7 +1179,7 @@ main:focus{outline:none}
 .caprow .chips li:hover{background:none;color:var(--white);border:0;letter-spacing:normal}
 
 /* ---------- Logo: PN monogram beside the name ---------- */
-.brand__mark{width:35px;height:35px;flex:none;display:block;transition:none}
+.brand__mark{width:40px;height:40px;flex:none;display:block;transition:none}
 .brand:hover .brand__mark{transform:none}
 
 /* Project rows that show an illustration instead of a screenshot (kiosk, Samsung) */
@@ -1391,3 +1391,16 @@ a.link-btn{text-decoration:none}
   .abstract--contact .ux--slider{right:3%}
   .abstract--contact .ux--loader{right:8%}
 }
+
+/* ---------- Map credit (CC BY 4.0), small, under the journey map ---------- */
+.map-credit{position:absolute;right:var(--gutter);bottom:clamp(.75rem,2vh,1.25rem);margin:0;font-size:.75rem;color:var(--ink-soft);opacity:.75;z-index:2}
+.map-credit a{color:inherit;text-decoration:underline;text-underline-offset:.2em}
+.map-credit a:hover,.map-credit a:focus-visible{color:var(--rani);opacity:1}
+@media (min-width:1441px){.map-credit{right:calc((100% - var(--max)) / 2 + var(--gutter))}}
+
+/* ---------- Logo triangle pattern: subtle background in a few sections ---------- */
+.has-tri{position:relative;isolation:isolate}
+.tri-bg{position:absolute;z-index:-1;pointer-events:none;--cell:clamp(36px,4.6vw,72px);background:no-repeat 0 0/100% 100%;opacity:.07}
+.tri-bg--corner{right:0;bottom:0;width:calc(var(--cell)*5);height:calc(var(--cell)*5);background-image:url("../img/tri-corner.svg")}
+.tri-bg--edge{right:0;top:50%;width:calc(var(--cell)*4);height:calc(var(--cell)*7);transform:translateY(-50%);background-image:url("../img/tri-edge.svg")}
+.contact .tri-bg{opacity:.12}
