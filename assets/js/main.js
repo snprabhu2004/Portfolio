@@ -187,6 +187,14 @@
       ['sba-04-1440.webp', 1440, 788, 'Where to send funds: automated or manual bank entry'],
       ['sba-06-1440.webp', 1440, 788, 'Linking a bank account through Plaid'],
       ['sba-05-1440.webp', 1440, 1288, 'Account verified: choose where the funds go'] ] },
+    uw: { title: 'Loan underwriting workspace', imgs: [
+      ['uw-login-2000.webp', 2000, 1422, 'Agent-only sign-in'],
+      ['uw-dashboard-2000.webp', 2000, 1422, 'Dashboard: completed, in-progress, not-started and total counts above the loan list'],
+      ['uw-application-1955.webp', 1955, 2000, '1003 application broken into trackable sections, each with its own field and completion counts'],
+      ['uw-application-complete-1955.webp', 1955, 2000, 'Same application further along, with a status filter open and a section marked complete'],
+      ['uw-documents-2000.webp', 2000, 1432, 'Document list for the file, with type, file size and a quick preview'],
+      ['uw-preview-2000.webp', 2000, 1432, 'A payslip opened in the inline document preview'],
+      ['uw-checklist-1955.webp', 1955, 2000, 'Underwriting checklist: a "No" answer opens a comment field instead of letting the item pass quietly'] ] },
     emirates: { title: 'Emirates Raffle', imgs: [
       ['emirates-light-full-1200.webp', 1200, 3772, 'Home page, light theme'],
       ['emirates-dark-full-1200.webp', 1200, 3772, 'Home page, dark theme'],

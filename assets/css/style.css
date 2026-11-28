@@ -279,10 +279,10 @@ main:focus{outline:none}
   .js .flow.is-playing .flow__step{animation:flowstep 4.8s infinite}
   .js .flow.is-playing .flow__step:nth-of-type(2){animation-delay:.8s}
   .js .flow.is-playing .flow__step:nth-of-type(3){animation-delay:1.6s}
-  .js .flow.is-playing .flow__tick{animation:tick 4.8s 1.6s infinite}
+  .js .flow.is-playing .flow__tick{animation:flow-tick 4.8s 1.6s infinite}
 }
 @keyframes flowstep{0%{opacity:.25}10%,80%{opacity:1}95%,100%{opacity:.25}}
-@keyframes tick{0%{stroke-dashoffset:60}12%,80%{stroke-dashoffset:0}95%,100%{stroke-dashoffset:60}}
+@keyframes flow-tick{0%{stroke-dashoffset:60}12%,80%{stroke-dashoffset:0}95%,100%{stroke-dashoffset:60}}
 
 /* Kiosk illustration */
 .kiosk{font-family:var(--font)}
